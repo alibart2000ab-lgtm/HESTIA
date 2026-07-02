@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Onboarding flow — shared styles across onboarding-1..5.html
+   ========================================================================== */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: var(--font-family-base);
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen {
+  background: linear-gradient(180deg, #8A2504 0%, #FF6B39 100%);
+  padding-bottom: var(--spacing-xl);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.h1 { font-size: var(--font-h1-size); line-height: var(--font-h1-lh); font-weight: var(--font-h1-weight); }
+.h4 { font-size: var(--font-h4-size); line-height: var(--font-h4-lh); font-weight: var(--font-h4-weight); }
+.body-md { font-size: var(--font-body-md-size); line-height: var(--font-body-md-lh); font-weight: var(--font-body-md-weight); }
+.body-lg { font-size: var(--font-body-lg-size); line-height: var(--font-body-lg-lh); font-weight: 600; }
+
+.icon { display: inline-block; flex-shrink: 0; }
+.icon svg { display: block; width: 100%; height: 100%; }
+
+/* ---------- Header: back button + step progress ---------- */
+.onb-header { padding: var(--spacing-lg) var(--spacing-lg) 0; }
+.onb-back {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-orange-4);
+  cursor: pointer;
+  text-decoration: none;
+  margin-bottom: var(--spacing-lg);
+}
+.onb-back .icon { width: 22px; height: 22px; }
+
+.onb-progress { display: flex; gap: 8px; padding: 0 var(--spacing-lg); margin-bottom: var(--spacing-lg); }
+.onb-progress .seg {
+  flex: 1;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.4);
+}
+.onb-progress .seg.active { background: var(--color-white); }
+
+/* ---------- Title block ---------- */
+.onb-title-block { padding: 0 var(--spacing-lg); }
+.onb-title { margin-bottom: var(--spacing-sm); }
+.onb-subtitle { font-weight: 600; font-size: var(--font-body-lg-size); line-height: 1.35; }
+
+/* ---------- Mascot ---------- */
+.onb-mascot-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: var(--spacing-lg) 0; min-height: 0; }
+.onb-mascot { display: block; width: 260px; max-width: 68%; height: auto; }
+
+.onb-footer-text {
+  text-align: center;
+  font-weight: 600;
+  padding: 0 var(--spacing-xl);
+  margin-top: var(--spacing-md);
+}
+
+/* ---------- CTA button ---------- */
+.onb-cta-wrap { padding: var(--spacing-lg); margin-top: auto; }
+.onb-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 17px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: none;
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  font-size: var(--font-button-size);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+}
+.onb-cta .icon { width: 20px; height: 20px; }
+
+/* ---------- Step 2: relationship choice cards ---------- */
+.choice-list { display: flex; flex-direction: column; gap: var(--spacing-md); padding: 0 var(--spacing-lg); margin-top: var(--spacing-lg); }
+.choice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.choice-card.selected { background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.4); }
+.choice-radio {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+.choice-card.selected .choice-radio { border-color: var(--color-white); }
+.choice-radio-dot {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--color-white);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.choice-card.selected .choice-radio-dot { opacity: 1; transform: scale(1); }
+.choice-title { font-weight: 700; }
+.choice-desc { margin-top: 2px; opacity: 0.9; }
+
+/* ---------- Step 3: observation footer text reuses .onb-footer-text ---------- */
+
+/* ---------- Habits review (screen 5) ---------- */
+.routine-list { display: flex; flex-direction: column; gap: var(--spacing-md); padding: 0 var(--spacing-lg); margin-top: var(--spacing-lg); }
+.routine-card {
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.routine-card.on { background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.35); }
+.routine-head { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-md); }
+.routine-desc { margin-top: var(--spacing-sm); opacity: 0.85; }
+.routine-confirm { margin-top: var(--spacing-md); font-weight: 700; }
+
+.toggle {
+  width: 44px; height: 26px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.25);
+  position: relative;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.toggle.on { background: var(--color-white); }
+.toggle.on::after { transform: translateX(18px); background: var(--color-orange-4); }

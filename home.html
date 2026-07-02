@@ -90,6 +90,10 @@
     background: var(--color-orange-3);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
   .goal-card-head {
     display: flex;
@@ -408,7 +412,7 @@
     <p class="body-md section-subtitle">Festeggiamoli assieme</p>
 
     <div class="goals-scroll">
-      <div class="goal-card">
+      <a class="goal-card" href="traguardi.html?goal=acqua" aria-label="Apri i tuoi traguardi: 2L di H2O risparmiati">
         <div class="goal-card-head">
           <span class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -421,9 +425,9 @@
         </div>
         <div class="h4 goal-value">2L di H<sub>2</sub>O</div>
         <p class="body-md goal-desc">Per aver annaffiato le piante alle 21:00</p>
-      </div>
+      </a>
 
-      <div class="goal-card">
+      <a class="goal-card" href="traguardi.html?goal=aperitivi" aria-label="Apri i tuoi traguardi: 2 aperitivi guadagnati">
         <div class="goal-card-head">
           <span class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -436,9 +440,9 @@
         </div>
         <div class="h4 goal-value">2 aperitivi</div>
         <p class="body-md goal-desc">Lavando sempre a pieno carico</p>
-      </div>
+      </a>
 
-      <div class="goal-card">
+      <a class="goal-card" href="traguardi.html?goal=bolletta" aria-label="Apri i tuoi traguardi: 10 euro risparmiati in bolletta">
         <div class="goal-card-head">
           <span class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -451,7 +455,7 @@
         </div>
         <div class="h4 goal-value">10 € in bolletta</div>
         <p class="body-md goal-desc">Abbassando il termostato di 1 °C</p>
-      </div>
+      </a>
     </div>
   </section>
 
