@@ -23,6 +23,13 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
+      workbox: {
+        // This is a multi-page app, not an SPA: each .html file is its own
+        // page, so navigation requests must NOT fall back to index.html
+        // (the default), or the service worker hijacks every link between
+        // pages and always serves index.html instead.
+        navigateFallback: null
+      },
       manifest: {
         name: 'Hestia Web App',
         short_name: 'Hestia',
