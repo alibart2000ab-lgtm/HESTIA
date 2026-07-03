@@ -307,38 +307,6 @@
     0%, 80%, 100% { transform: translateY(0); opacity: .4; }
     40% { transform: translateY(-4px); opacity: 1; }
   }
-  .chat-key-setup {
-    flex: 1;
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--spacing-sm);
-  }
-  .chat-key-input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-default);
-    font-family: var(--font-family-base);
-    font-size: var(--font-body-md-size);
-    background: var(--color-bg-surface);
-    color: var(--color-text-primary);
-  }
-  .chat-key-input:focus { outline: none; border-color: var(--color-border-focus); }
-  .chat-key-save {
-    padding: 12px;
-    border-radius: var(--radius-md);
-    border: none;
-    background: var(--color-action-primary-default);
-    color: var(--color-white);
-    font-family: var(--font-family-base);
-    font-weight: 600;
-    font-size: var(--font-button-size);
-    cursor: pointer;
-  }
-  .chat-key-save:hover { background: var(--color-action-primary-hover); }
-  .chat-key-link { color: var(--color-text-secondary); text-decoration: underline; font-size: var(--font-body-sm-size); }
   .chat-input-row {
     display: flex;
     align-items: center;
@@ -666,14 +634,6 @@
       <div class="label chat-header-name">Hestia</div>
       <div class="body-sm chat-header-status" id="chat-status">Pronta ad ascoltarti</div>
     </div>
-    <button type="button" class="chat-icon-btn" id="chat-settings-btn" aria-label="Impostazioni API key">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-      </span>
-    </button>
     <button type="button" class="chat-icon-btn" id="chat-close-btn" aria-label="Chiudi chat">
       <span class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -686,14 +646,7 @@
 
   <div class="chat-messages" id="chat-messages"></div>
 
-  <div class="chat-key-setup" id="chat-key-setup" hidden>
-    <p class="body-md">Per parlare con Hestia inserisci la tua Gemini API key. Viene salvata solo su questo dispositivo, nel browser.</p>
-    <input type="password" id="chat-key-input" class="chat-key-input" placeholder="Incolla qui la API key" autocomplete="off" spellcheck="false">
-    <button type="button" class="chat-key-save" id="chat-key-save">Salva e inizia a chattare</button>
-    <a class="chat-key-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Ottieni una API key gratuita da Google AI Studio →</a>
-  </div>
-
-  <form class="chat-input-row" id="chat-form" hidden>
+  <form class="chat-input-row" id="chat-form">
     <input type="text" id="chat-input" class="chat-text-input" placeholder="Scrivi un messaggio…" autocomplete="off">
     <button type="submit" class="chat-send-btn" id="chat-send-btn" aria-label="Invia messaggio">
       <span class="icon">
@@ -714,18 +667,40 @@
 
 <script>
 (function () {
-  const STORAGE_KEY = 'hestiaGeminiApiKey';
-  const MODEL = 'gemini-flash-latest';
-  const SYSTEM_INSTRUCTION = "Sei Hestia, l'assistente domestica intelligente di un'app di smart home. Rispondi sempre in italiano, con un tono caldo, amichevole e concreto. Tieni le risposte brevi (2-3 frasi) a meno che l'utente non chieda esplicitamente più dettagli.";
+  // Simulated assistant: canned, keyword-based replies with a fake typing
+  // delay. No network calls and no API key required from the user.
+  const GREETING = 'Ciao! Sono Hestia 👋 Come posso aiutarti oggi?';
+  const FALLBACK_REPLIES = [
+    "Ho preso nota! Al momento sono ancora in modalità demo, ma presto potrò darti una mano davvero con questo.",
+    "Bella domanda! Non ho ancora una risposta precisa, ma la tua casa sembra messa bene 😊",
+    "Sto ancora imparando a rispondere a tutto — intanto dai un'occhiata ai tuoi traguardi qui sopra!",
+    "Interessante! Per ora sono una versione dimostrativa, ma continua a esplorare l'app."
+  ];
+  const KEYWORD_REPLIES = [
+    { keywords: ['ciao', 'salve', 'hey'], replies: ["Ciao! Come posso aiutarti oggi?", "Ehi, sono qui! Dimmi pure."] },
+    { keywords: ['acqua', 'h2o'], replies: ["Stai andando alla grande con il risparmio idrico: hai già risparmiato 2L di H2O questo mese!"] },
+    { keywords: ['luce', 'luci', 'energia', 'elettric'], replies: ["Ricorda di spegnere le luci quando esci da una stanza: ogni piccolo gesto conta per la bolletta."] },
+    { keywords: ['bolletta', 'soldi', 'risparmio', 'risparmiare'], replies: ["Con le tue abitudini attuali hai già risparmiato circa 10€ in bolletta questo mese, continua così!"] },
+    { keywords: ['stanza', 'soggiorno', 'cucina', 'bagno', 'camera'], replies: ["Puoi toccare l'occhio sulla piantina per vedere lo stato di ogni stanza della casa."] },
+    { keywords: ['grazie'], replies: ["Di niente, sono sempre qui per te! 🙂"] }
+  ];
+
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function simulateReply(userText) {
+    const lower = userText.toLowerCase();
+    for (const entry of KEYWORD_REPLIES) {
+      if (entry.keywords.some(function (k) { return lower.indexOf(k) !== -1; })) {
+        return pick(entry.replies);
+      }
+    }
+    return pick(FALLBACK_REPLIES);
+  }
 
   const trigger = document.getElementById('chat-bar-trigger');
   const panel = document.getElementById('chat-panel');
   const closeBtn = document.getElementById('chat-close-btn');
-  const settingsBtn = document.getElementById('chat-settings-btn');
   const messagesEl = document.getElementById('chat-messages');
-  const keySetup = document.getElementById('chat-key-setup');
-  const keyInput = document.getElementById('chat-key-input');
-  const keySave = document.getElementById('chat-key-save');
   const form = document.getElementById('chat-form');
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send-btn');
@@ -733,22 +708,7 @@
 
   if (!trigger || !panel) return;
 
-  let history = [];
   let sending = false;
-
-  function getApiKey() { return localStorage.getItem(STORAGE_KEY) || ''; }
-  function setApiKey(k) { localStorage.setItem(STORAGE_KEY, k); }
-
-  function showKeySetup() {
-    keySetup.hidden = false;
-    form.hidden = true;
-    messagesEl.hidden = true;
-  }
-  function showChat() {
-    keySetup.hidden = true;
-    form.hidden = false;
-    messagesEl.hidden = false;
-  }
 
   function avatarSvg() {
     return '<svg viewBox="0 0 44 44" class="mascot-icon" aria-hidden="true"><rect width="44" height="44" rx="12" fill="url(#pattern0_154_570)"/></svg>';
@@ -756,20 +716,15 @@
 
   function ensureGreeting() {
     if (!messagesEl.childElementCount) {
-      addBubble('assistant', 'Ciao! Sono Hestia 👋 Come posso aiutarti oggi?');
+      addBubble('assistant', GREETING);
     }
   }
 
   function openPanel() {
     panel.classList.add('open');
     panel.setAttribute('aria-hidden', 'false');
-    if (getApiKey()) {
-      showChat();
-      ensureGreeting();
-      setTimeout(function () { input.focus(); }, 300);
-    } else {
-      showKeySetup();
-    }
+    ensureGreeting();
+    setTimeout(function () { input.focus(); }, 300);
   }
   function closePanel() {
     panel.classList.remove('open');
@@ -815,47 +770,18 @@
     if (row) row.remove();
   }
 
-  async function askGemini(userText) {
-    const apiKey = getApiKey();
-    history.push({ role: 'user', parts: [{ text: userText }] });
+  function replyTo(userText) {
     addTypingBubble();
     statusEl.textContent = 'Sta scrivendo…';
-    try {
-      const res = await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(apiKey),
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-            contents: history
-          })
-        }
-      );
-      const data = await res.json().catch(function () { return {}; });
+    const delay = 500 + Math.random() * 700;
+    setTimeout(function () {
       removeTypingBubble();
-      if (!res.ok) {
-        const msg = (data && data.error && data.error.message) || ('Errore ' + res.status);
-        addBubble('assistant', 'Qualcosa non ha funzionato: ' + msg, { error: true });
-        statusEl.textContent = (res.status === 400 || res.status === 403)
-          ? 'Controlla la tua API key'
-          : 'Pronta ad ascoltarti';
-        history.pop();
-        return;
-      }
-      const candidate = data.candidates && data.candidates[0];
-      const parts = candidate && candidate.content && candidate.content.parts;
-      const reply = parts ? parts.map(function (p) { return p.text || ''; }).join('') : '';
-      const text = reply.trim() || 'Non ho una risposta pronta, riprova tra poco.';
-      history.push({ role: 'model', parts: [{ text: text }] });
-      addBubble('assistant', text);
+      addBubble('assistant', simulateReply(userText));
       statusEl.textContent = 'Pronta ad ascoltarti';
-    } catch (err) {
-      removeTypingBubble();
-      addBubble('assistant', 'Non riesco a raggiungere Gemini. Controlla la connessione e riprova.', { error: true });
-      statusEl.textContent = 'Pronta ad ascoltarti';
-      history.pop();
-    }
+      sending = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }, delay);
   }
 
   trigger.addEventListener('click', openPanel);
@@ -863,20 +789,6 @@
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(); }
   });
   closeBtn.addEventListener('click', closePanel);
-  settingsBtn.addEventListener('click', function () {
-    keyInput.value = getApiKey();
-    showKeySetup();
-  });
-
-  keySave.addEventListener('click', function () {
-    const val = keyInput.value.trim();
-    if (!val) return;
-    setApiKey(val);
-    keyInput.value = '';
-    showChat();
-    ensureGreeting();
-    input.focus();
-  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -886,11 +798,7 @@
     sendBtn.disabled = true;
     addBubble('user', text);
     input.value = '';
-    askGemini(text).finally(function () {
-      sending = false;
-      sendBtn.disabled = false;
-      input.focus();
-    });
+    replyTo(text);
   });
 })();
 </script>
