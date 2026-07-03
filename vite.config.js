@@ -27,6 +27,10 @@ export default defineConfig({
         name: 'Hestia Web App',
         short_name: 'Hestia',
         description: 'Hestia Prototype converted to PWA',
+        display: 'standalone',
+        orientation: 'portrait',
+        start_url: '/HESTIA/',
+        background_color: '#ffffff',
         theme_color: '#ffffff',
         icons: [
           {

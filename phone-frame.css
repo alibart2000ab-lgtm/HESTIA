@@ -1,28 +1,24 @@
 /* ==========================================================================
-   iPhone device frame — wraps the app UI for presentation
+   App shell — fills the real viewport like a native app.
+   No decorative bezel, no fake Dynamic Island, no fake status bar: the
+   real OS draws those. Safe-area insets keep content clear of the notch
+   and home indicator.
    ========================================================================== */
 
 body.device-body {
+  margin: 0;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 20px;
-  background: radial-gradient(circle at 30% 20%, #3a3a3d 0%, #17171a 65%);
+  min-height: 100dvh;
+  background: var(--color-bg-canvas);
 }
 
 .iphone-frame {
   position: relative;
-  flex-shrink: 0;
-  width: 430px;
-  height: 932px;
-  background: linear-gradient(160deg, #2c2c2e, #0b0b0c 60%);
-  border-radius: 64px;
-  padding: 14px;
-  box-shadow:
-    0 0 0 2px #050505,
-    0 40px 80px rgba(0, 0, 0, 0.55),
-    0 12px 24px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: none;
+  padding: 0;
 }
 
 .iphone-screen {
@@ -30,66 +26,23 @@ body.device-body {
   width: 100%;
   height: 100%;
   background: var(--color-bg-canvas);
-  border-radius: 50px;
   overflow: hidden;
 }
 
-/* Dynamic Island */
-.dynamic-island {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 126px;
-  height: 37px;
-  background: #000;
-  border-radius: 20px;
-  z-index: 100;
-  pointer-events: none;
-}
-
-/* Status bar (time + signal/wifi/battery) */
-.status-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 90;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  background: var(--color-bg-canvas);
-  font-family: var(--font-family-base);
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--color-text-primary);
-}
-.status-bar .status-time { letter-spacing: 0.2px; }
-.status-bar .status-icons { display: flex; align-items: center; gap: 6px; }
-.status-bar .status-icons svg { display: block; }
-
-/* Side buttons */
+/* Legacy decorative elements from the desktop mockup — always hidden. */
+.dynamic-island,
+.status-bar,
 .iphone-frame .side-btn {
-  position: absolute;
-  background: linear-gradient(90deg, #3a3a3d, #232325);
-}
-.iphone-frame .btn-mute { left: -4px; top: 126px; width: 4px; height: 30px; border-radius: 2px 0 0 2px; }
-.iphone-frame .btn-vol-up { left: -4px; top: 172px; width: 4px; height: 58px; border-radius: 2px 0 0 2px; }
-.iphone-frame .btn-vol-down { left: -4px; top: 240px; width: 4px; height: 58px; border-radius: 2px 0 0 2px; }
-.iphone-frame .btn-power {
-  right: -4px; top: 196px; width: 4px; height: 92px; border-radius: 0 2px 2px 0;
-  background: linear-gradient(270deg, #3a3a3d, #232325);
+  display: none;
 }
 
-/* Scrollable app content sits between the status bar and the bottom nav */
+/* Scrollable app content fills the screen, clear of safe areas */
 .iphone-screen > .screen {
   position: absolute;
   inset: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-top: 54px;
+  padding-top: env(safe-area-inset-top);
 }
 .iphone-screen > .screen::-webkit-scrollbar { display: none; }
 
@@ -100,4 +53,5 @@ body.device-body {
   bottom: 0;
   width: 100%;
   z-index: 95;
+  padding-bottom: env(safe-area-inset-bottom);
 }
