@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+<title>Hestia — Definiamo il nostro rapporto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="/HESTIA/assets/phone-frame-CchbjeBN.css">
+  <link rel="stylesheet" crossorigin href="/HESTIA/assets/onboarding-C9oAUhzJ.css">
+<link rel="manifest" href="/HESTIA/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/HESTIA/registerSW.js"></script></head>
+<body class="device-body">
+
+<div class="iphone-frame">
+  <div class="side-btn btn-mute"></div>
+  <div class="side-btn btn-vol-up"></div>
+  <div class="side-btn btn-vol-down"></div>
+  <div class="side-btn btn-power"></div>
+
+  <div class="iphone-screen">
+    <div class="dynamic-island"></div>
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span class="status-icons">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 9.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z" fill="currentColor"/><path d="M4.5 7.2a5 5 0 0 1 7 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1.8 4.4a9 9 0 0 1 12.4 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/><rect x="22.5" y="4" width="1.5" height="4" rx="0.7" fill="currentColor"/></svg>
+      </span>
+    </div>
+
+<div class="screen">
+
+  <div class="onb-header">
+    <a class="onb-back" href="onboarding-2.html" aria-label="Torna indietro">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"/>
+          <path d="M12 19l-7-7 7-7"/>
+        </svg>
+      </span>
+    </a>
+    <div class="onb-progress">
+      <span class="seg"></span>
+      <span class="seg active"></span>
+      <span class="seg"></span>
+    </div>
+  </div>
+
+  <div class="onb-title-block">
+    <h1 class="h1 onb-title">Definiamo il nostro rapporto</h1>
+    <p class="onb-subtitle">Quanta fiducia mi dai?</p>
+  </div>
+
+  <div class="choice-list" id="choice-list">
+    <button type="button" class="choice-card" data-choice="calma">
+      <span class="choice-radio"><span class="choice-radio-dot"></span></span>
+      <span>
+        <span class="body-lg choice-title">Conosciamoci con calma</span>
+        <span class="body-md choice-desc">Vado piano. Ti chiedo sempre il permesso.</span>
+      </span>
+    </button>
+
+    <button type="button" class="choice-card selected" data-choice="fiducia">
+      <span class="choice-radio"><span class="choice-radio-dot"></span></span>
+      <span>
+        <span class="body-lg choice-title">Mi fido di te</span>
+        <span class="body-md choice-desc">Faccio i primi passi da sola, ma ti aggiorno sempre.</span>
+      </span>
+    </button>
+
+    <button type="button" class="choice-card" data-choice="volo">
+      <span class="choice-radio"><span class="choice-radio-dot"></span></span>
+      <span>
+        <span class="body-lg choice-title">Ci capiamo al volo</span>
+        <span class="body-md choice-desc">Mi fido di te e tu ti fidi di me. Agisco e te lo racconto dopo.</span>
+      </span>
+    </button>
+  </div>
+
+  <div class="onb-cta-wrap">
+    <a class="onb-cta" href="onboarding-4.html" id="onb-next">Ho scelto</a>
+  </div>
+
+</div>
+<!-- /.screen -->
+
+  </div>
+  <!-- /.iphone-screen -->
+</div>
+<!-- /.iphone-frame -->
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.choice-card'));
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      localStorage.setItem('hestiaRelationshipChoice', card.dataset.choice);
+    });
+  });
+</script>
+</body>
+</html>
