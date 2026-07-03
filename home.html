@@ -22,7 +22,7 @@
   }
   .screen {
     background: var(--color-bg-canvas);
-    padding-bottom: var(--spacing-lg);
+    padding-bottom: calc(85px + var(--spacing-lg) * 2 + env(safe-area-inset-bottom));
   }
 
   /* ---------- Typography utilities ---------- */
@@ -62,6 +62,15 @@
   .section {
     padding: 0 var(--spacing-lg);
     margin-top: var(--spacing-lg);
+  }
+  .chat-bar-sticky {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80;
+    padding: var(--spacing-md) var(--spacing-lg) calc(var(--spacing-md) + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--color-bg-canvas) 60%, transparent);
   }
   .section-head {
     display: flex;
@@ -591,8 +600,11 @@
     </div>
   </section>
 
-  <!-- Assistente vocale -->
-  <section class="section">
+
+</div>
+<!-- /.screen -->
+<!-- Assistente vocale (sticky, fuori da .screen) -->
+<div class="chat-bar-sticky">
     <div class="chat-bar-wrap" id="chat-bar-trigger" role="button" tabindex="0" aria-label="Parla con Hestia">
       <svg viewBox="0 0 383 85" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g filter="url(#filter0_d_154_570)">
@@ -621,10 +633,7 @@
       </defs>
       </svg>
     </div>
-  </section>
-
 </div>
-<!-- /.screen -->
 
 <div class="chat-panel" id="chat-panel" aria-hidden="true">
   <div class="chat-panel-header">
