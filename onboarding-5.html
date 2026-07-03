@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hestia — Le tue abitudini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="phone-frame.css">
+<link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="device-body">
+
+<div class="iphone-frame">
+  <div class="side-btn btn-mute"></div>
+  <div class="side-btn btn-vol-up"></div>
+  <div class="side-btn btn-vol-down"></div>
+  <div class="side-btn btn-power"></div>
+
+  <div class="iphone-screen">
+    <div class="dynamic-island"></div>
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span class="status-icons">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 9.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z" fill="currentColor"/><path d="M4.5 7.2a5 5 0 0 1 7 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1.8 4.4a9 9 0 0 1 12.4 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/><rect x="22.5" y="4" width="1.5" height="4" rx="0.7" fill="currentColor"/></svg>
+      </span>
+    </div>
+
+<div class="screen">
+
+  <div class="onb-title-block" style="margin-top: var(--spacing-lg);">
+    <h1 class="h1 onb-title">Le tue abitudini</h1>
+    <p class="onb-subtitle">Questa settimana ho imparato tanto su di te.</p>
+  </div>
+
+  <div class="routine-list">
+    <div class="routine-card" id="routine-1">
+      <div class="routine-head">
+        <span class="h4">Il tuo risveglio</span>
+        <button type="button" class="toggle" data-target="routine-1" aria-label="Attiva automazione risveglio"></button>
+      </div>
+      <p class="body-md routine-desc">Ogni mattina alle 7:15 accendi le luci del bagno e alzi le tapparelle in camera.</p>
+      <p class="body-md routine-confirm">Alle 7:15 di ogni mattina, bagno illuminato e tapparelle alzate in camera.</p>
+    </div>
+
+    <div class="routine-card on" id="routine-2">
+      <div class="routine-head">
+        <span class="h4">Quando esci</span>
+        <button type="button" class="toggle on" data-target="routine-2" aria-label="Attiva automazione uscita"></button>
+      </div>
+      <p class="body-md routine-desc">Di solito, appena chiudi la porta, spegni tutto tranne il frigo.</p>
+      <p class="body-md routine-confirm">Appena esci, spengo tutto tranne il frigo.</p>
+    </div>
+
+    <div class="routine-card" id="routine-3">
+      <div class="routine-head">
+        <span class="h4">Il tuo rientro</span>
+        <button type="button" class="toggle" data-target="routine-3" aria-label="Attiva automazione rientro"></button>
+      </div>
+      <p class="body-md routine-desc">Verso le 19:00 accendi le luci del soggiorno e regoli il riscaldamento.</p>
+      <p class="body-md routine-confirm">Accendo le luci e regolo il riscaldamento prima che tu arrivi alle 19:00.</p>
+    </div>
+  </div>
+
+  <div class="onb-cta-wrap">
+    <a class="onb-cta" href="home.html" id="onb-finish">Salva le mie abitudini</a>
+  </div>
+
+</div>
+<!-- /.screen -->
+
+  </div>
+  <!-- /.iphone-screen -->
+</div>
+<!-- /.iphone-frame -->
+
+<script>
+  document.querySelectorAll('.toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const on = !btn.classList.contains('on');
+      btn.classList.toggle('on', on);
+      const card = document.getElementById(btn.dataset.target);
+      if (card) card.classList.toggle('on', on);
+    });
+  });
+
+  document.getElementById('onb-finish').addEventListener('click', () => {
+    localStorage.setItem('hestiaOnboardingComplete', 'true');
+  });
+</script>
+</body>
+</html>

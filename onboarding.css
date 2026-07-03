@@ -123,8 +123,8 @@ html, body {
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 .choice-card.selected .choice-radio-dot { opacity: 1; transform: scale(1); }
-.choice-title { font-weight: 700; }
-.choice-desc { margin-top: 2px; opacity: 0.9; }
+.choice-title { display: block; font-weight: 700; }
+.choice-desc { display: block; margin-top: 2px; opacity: 0.9; }
 
 /* ---------- Step 3: observation footer text reuses .onb-footer-text ---------- */
 
